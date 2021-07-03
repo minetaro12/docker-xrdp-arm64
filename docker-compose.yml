@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  xrdp:
+    build: .
+    image: ubuntu-xrdp
+    #restart: always
+    hostname: docker-ubuntu
+    container_name: ubuntu-xrdp
+    volumes:
+      - ./home:/home
+      # chrome
+      - /dev/shm:/dev/shm
+      # clipbard
+      - /dev/fuse:/dev/fuse
+    cap_add:
+      - ALL
+      # # chrome
+      # - SYS_ADMIN
+      # # smbclient
+      # - DAC_READ_SEARCH
+    user: "1000:1000"
+    ports:
+      # xrdp
+      - "8000:3389"
+      # sshd
+      - "10022:22"
+    environment:
+      USER: CHANGEME
+      PASSWD: "CHANGEME"
